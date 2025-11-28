@@ -1,0 +1,5 @@
+package constans;
+
+public class CommonConstans {
+    public static final String BASE_URL = "https://petstore.swagger.io/v2/";
+}
