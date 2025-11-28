@@ -11,7 +11,7 @@ public class UserController {
 
     RequestSpecification requestSpecification;
     private static final String BASE_URL = "https://petstore.swagger.io/v2/";
-    private static String END_POINT = "user";
+    private static final String END_POINT = "user";
 
     public UserController(){
         this.requestSpecification = given()

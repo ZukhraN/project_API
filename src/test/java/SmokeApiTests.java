@@ -1,7 +1,6 @@
 
 import controllers.UserController;
 import io.restassured.response.Response;
-import lombok.Builder;
 import models.AddUserResponse;
 import models.User;
 import org.junit.jupiter.api.Assertions;
