@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static testData.TestData.DEFAULT_USER;
+import static testData.TestData.INVALID_USER;
 
 public class SmokeApiTests {
 
@@ -80,15 +82,6 @@ public class SmokeApiTests {
                 "password",
                 "904774898895",
                 0);
-        User userBuilder = User.builder()
-                .username("username")
-                .firstName("firstName")
-                .lastName("lastName")
-                .email("email")
-                .password("password")
-                .phone("phone")
-                .userStatus(0)
-                .build();
 
         Response response = userController.CreateUser(user);
         AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
@@ -99,5 +92,25 @@ public class SmokeApiTests {
         Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
     }
 
+    @Test
+    public void createUserControllerTestDataTest(){
+        Response response = userController.CreateUser(DEFAULT_USER);
+        AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
 
+        Assertions.assertEquals(200, response.getStatusCode());
+        Assertions.assertEquals(200, createdUserResponse.getCode());
+        Assertions.assertEquals("unknown", createdUserResponse.getType());
+        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+    }
+
+    @Test
+    public void createUserControllerTestDataInvalidTest(){
+        Response response = userController.CreateUser(INVALID_USER);
+        AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
+
+        Assertions.assertEquals(200, response.getStatusCode());
+        Assertions.assertEquals(200, createdUserResponse.getCode());
+        Assertions.assertEquals("unknown", createdUserResponse.getType());
+        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+    }
 }
