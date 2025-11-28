@@ -1,5 +1,9 @@
 
+import controllers.UserController;
 import io.restassured.response.Response;
+import lombok.Builder;
+import models.AddUserResponse;
+import models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +11,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class SmokeApiTests {
+
+    UserController userController = new UserController();
 
     @Test
     public void checkStatusCodeTest(){
@@ -61,6 +67,37 @@ public class SmokeApiTests {
                 .then()
                     .statusCode(200)
                     .body("type", equalTo("unknown"));
+    }
+
+
+    @Test
+    public void createUserControllerTest(){
+        User user = new User(
+                0,
+                "Max",
+                "Max",
+                "Pane",
+                "m.pane@gmail.com",
+                "password",
+                "904774898895",
+                0);
+        User userBuilder = User.builder()
+                .username("username")
+                .firstName("firstName")
+                .lastName("lastName")
+                .email("email")
+                .password("password")
+                .phone("phone")
+                .userStatus(0)
+                .build();
+
+        Response response = userController.CreateUser(user);
+        AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
+
+        Assertions.assertEquals(200, response.getStatusCode());
+        Assertions.assertEquals(200, createdUserResponse.getCode());
+        Assertions.assertEquals("unknown", createdUserResponse.getType());
+        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
     }
 
 
