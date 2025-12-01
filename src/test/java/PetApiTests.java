@@ -1,7 +1,6 @@
 import controllers.PetController;
 import io.restassured.response.Response;
 import models.AddPetResponse;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

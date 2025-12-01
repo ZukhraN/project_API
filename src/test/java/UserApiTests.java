@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static testData.TestData.DEFAULT_USER;
 import static testData.TestData.INVALID_USER;
 
-public class SmokeApiTests {
+public class UserApiTests {
 
     UserController userController = new UserController();
 
