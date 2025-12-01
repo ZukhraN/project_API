@@ -5,6 +5,10 @@ import models.AddUserResponse;
 import models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -106,6 +110,22 @@ public class SmokeApiTests {
     @Test
     public void createUserControllerTestDataInvalidTest(){
         Response response = userController.CreateUser(INVALID_USER);
+        AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
+
+        Assertions.assertEquals(200, response.getStatusCode());
+        Assertions.assertEquals(200, createdUserResponse.getCode());
+        Assertions.assertEquals("unknown", createdUserResponse.getType());
+        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+    }
+
+    static Stream<User> users(){
+        return Stream.of(DEFAULT_USER, INVALID_USER);
+    }
+
+    @ParameterizedTest
+    @MethodSource("users")
+    public void createUserParametrizedTest(User user){
+        Response response = userController.CreateUser(user);
         AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
 
         Assertions.assertEquals(200, response.getStatusCode());
