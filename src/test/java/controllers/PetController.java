@@ -1,9 +1,9 @@
 package controllers;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import models.Pet;
-import models.User;
 
 import static constans.CommonConstans.BASE_URL;
 import static io.restassured.RestAssured.given;
@@ -22,6 +22,7 @@ public class PetController {
                 .baseUri(BASE_URL);
     }
 
+    @Step("Create a new pet")
     public Response CreatePet(Pet pet){
         return  given(this.requestSpecification)
                 .body(pet)
@@ -30,6 +31,7 @@ public class PetController {
                 .andReturn();
     }
 
+    @Step("Update information of pet")
     public Response UpdatePet(Pet pet){
         return  given(this.requestSpecification)
                 .body(pet)
@@ -38,6 +40,7 @@ public class PetController {
                 .andReturn();
     }
 
+    @Step("Get information of pet")
     public Response GetPetById(long id){
         return given(this.requestSpecification)
                 .when()
@@ -45,7 +48,8 @@ public class PetController {
                 .andReturn();
     }
 
-    public Response DeletePetById(Long id){
+    @Step("Delete pet")
+    public Response DeletePetById(long id){
         return given(this.requestSpecification)
                 .when()
                 .delete(END_POINT_PET + "/" + id)

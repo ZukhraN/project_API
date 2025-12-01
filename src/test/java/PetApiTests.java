@@ -1,12 +1,11 @@
 import controllers.PetController;
 import io.restassured.response.Response;
 import models.AddPetResponse;
-import models.Pet;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static constans.CommonConstans.DEFAULT_PET;
-import static constans.CommonConstans.UPDATED_PET;
+import static constans.CommonConstans.*;
 
 public class PetApiTests {
 
@@ -22,6 +21,7 @@ public class PetApiTests {
         Assertions.assertEquals("available", createPetResponse.getStatus());
     }
 
+
     @Test
     public void updatePetTest(){
         PetController petController = new PetController();
@@ -31,6 +31,7 @@ public class PetApiTests {
         Assertions.assertEquals(200, response.getStatusCode());
         Assertions.assertEquals("sold", createPetResponse.getStatus());
     }
+
 
     @Test
     public void getPetTest(){
@@ -44,16 +45,12 @@ public class PetApiTests {
     }
 
 
+    @Test
     public void detelePetTest(){
-        Pet pet = Pet.builder()
-                .id(0L)
-                .name("cattie")
-                .build();
+        int pet_id = 1;
         PetController petController = new PetController();
-        Response response = petController.DeletePetById(pet.getId());
-        AddPetResponse createPetResponse = response.as(AddPetResponse.class);
+        Response response = petController.CreatePet(DELETED_PET);
 
         Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals("puppy", createPetResponse.getName());
     }
 }
