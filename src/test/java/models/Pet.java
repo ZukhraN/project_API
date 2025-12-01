@@ -10,5 +10,5 @@ import lombok.Data;
 public class Pet {
     private long id;
     private String name;
-    private String status;
+    private Status status;
 }
