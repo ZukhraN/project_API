@@ -40,7 +40,7 @@ public class PetApiTests {
         AddPetResponse createPetResponse = response.as(AddPetResponse.class);
 
         Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals("cat", createPetResponse.getName());
+        Assertions.assertEquals("doggie", createPetResponse.getName());
     }
 
 
