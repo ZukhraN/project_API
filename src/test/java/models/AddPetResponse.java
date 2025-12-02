@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class AddPetResponse {
+
     private Long id;
     private Category category;
     private String name;
