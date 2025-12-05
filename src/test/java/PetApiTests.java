@@ -1,8 +1,9 @@
 import controllers.PetController;
 import io.restassured.response.Response;
 import models.AddPetResponse;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 import static constans.CommonConstans.*;
 
@@ -15,9 +16,9 @@ public class PetApiTests {
         Response response = petController.CreatePet(DEFAULT_PET);
         AddPetResponse createPetResponse = response.as(AddPetResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals("pet", createPetResponse.getName());
-        Assertions.assertEquals("available", createPetResponse.getStatus());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals("pet", createPetResponse.getName());
+        Assert.assertEquals("available", createPetResponse.getStatus());
     }
 
 
@@ -27,8 +28,8 @@ public class PetApiTests {
         Response response = petController.UpdatePet(UPDATED_PET);
         AddPetResponse createPetResponse = response.as(AddPetResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals("sold", createPetResponse.getStatus());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals("sold", createPetResponse.getStatus());
     }
 
 
@@ -39,8 +40,8 @@ public class PetApiTests {
         Response response = petController.GetPetById(pet_id);
         AddPetResponse createPetResponse = response.as(AddPetResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals("doggie", createPetResponse.getName());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals("doggie", createPetResponse.getName());
     }
 
 
@@ -50,6 +51,6 @@ public class PetApiTests {
         PetController petController = new PetController();
         Response response = petController.CreatePet(DELETED_PET);
 
-        Assertions.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }

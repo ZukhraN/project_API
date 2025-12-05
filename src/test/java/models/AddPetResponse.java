@@ -14,4 +14,3 @@ public class AddPetResponse {
     private List<Tag> tags;
     private String status;
 }
-

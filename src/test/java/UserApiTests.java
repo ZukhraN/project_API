@@ -3,10 +3,8 @@ import controllers.UserController;
 import io.restassured.response.Response;
 import models.AddUserResponse;
 import models.User;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.stream.Stream;
 
@@ -44,7 +42,7 @@ public class UserApiTests {
 
        int actualCode = response.getStatusCode();
 
-        Assertions.assertEquals(200, actualCode);
+        Assert.assertEquals(200, actualCode);
     }
 
     @Test
@@ -90,10 +88,10 @@ public class UserApiTests {
         Response response = userController.CreateUser(user);
         AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals(200, createdUserResponse.getCode());
-        Assertions.assertEquals("unknown", createdUserResponse.getType());
-        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(200, createdUserResponse.getCode());
+        Assert.assertEquals("unknown", createdUserResponse.getType());
+        Assert.assertFalse(createdUserResponse.getMessage().isEmpty());
     }
 
     @Test
@@ -101,10 +99,10 @@ public class UserApiTests {
         Response response = userController.CreateUser(DEFAULT_USER);
         AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals(200, createdUserResponse.getCode());
-        Assertions.assertEquals("unknown", createdUserResponse.getType());
-        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(200, createdUserResponse.getCode());
+        Assert.assertEquals("unknown", createdUserResponse.getType());
+        Assert.assertFalse(createdUserResponse.getMessage().isEmpty());
     }
 
     @Test
@@ -112,25 +110,26 @@ public class UserApiTests {
         Response response = userController.CreateUser(INVALID_USER);
         AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals(200, createdUserResponse.getCode());
-        Assertions.assertEquals("unknown", createdUserResponse.getType());
-        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(200, createdUserResponse.getCode());
+        Assert.assertEquals("unknown", createdUserResponse.getType());
+        Assert.assertFalse(createdUserResponse.getMessage().isEmpty());
     }
 
     static Stream<User> users(){
         return Stream.of(DEFAULT_USER, INVALID_USER);
     }
 
-    @ParameterizedTest
-    @MethodSource("users")
+    @Test
+    //@ParameterizedTest
+    //@MethodSource("users")
     public void createUserParametrizedTest(User user){
         Response response = userController.CreateUser(user);
         AddUserResponse createdUserResponse = response.as(AddUserResponse.class);
 
-        Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals(200, createdUserResponse.getCode());
-        Assertions.assertEquals("unknown", createdUserResponse.getType());
-        Assertions.assertFalse(createdUserResponse.getMessage().isEmpty());
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(200, createdUserResponse.getCode());
+        Assert.assertEquals("unknown", createdUserResponse.getType());
+        Assert.assertFalse(createdUserResponse.getMessage().isEmpty());
     }
 }
