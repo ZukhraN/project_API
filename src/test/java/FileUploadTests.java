@@ -35,7 +35,6 @@ public class FileUploadTests {
         System.out.println("Response: " + response.asString());
         AddResponsePet createPetResponse = response.as(AddResponsePet.class);
 
-
         Assert.assertEquals(200, createPetResponse.getCode());
         Assert.assertEquals("unknown", createPetResponse.getType());
 
