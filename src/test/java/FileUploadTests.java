@@ -1,5 +1,4 @@
 import io.restassured.response.Response;
-import models.AddPetResponse;
 import models.AddResponsePet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -38,5 +37,25 @@ public class FileUploadTests {
         Assert.assertEquals(200, createPetResponse.getCode());
         Assert.assertEquals("unknown", createPetResponse.getType());
 
+    }
+
+    @Test
+    void uploadApiTest(){
+
+        String apiUrl = "https://bonigarcia.dev/selenium-webdriver-java/submitted-form.html";
+
+        File file = new File("src/test/resources/webdrivermanager.png");
+
+        Response response =
+                given()
+                        .header("accept", "application/json")
+                        .contentType("multipart/form-data")
+                        .multiPart("text", file, "plain") // Указываем тип содержимого файла
+                        .when()
+                        .post(apiUrl)
+                        .then()
+                        .statusCode(405)  // Проверяем, что запрос успешен
+                        .extract()
+                        .response();
     }
 }
